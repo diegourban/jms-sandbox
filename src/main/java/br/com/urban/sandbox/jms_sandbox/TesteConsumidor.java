@@ -1,5 +1,6 @@
 package br.com.urban.sandbox.jms_sandbox;
 
+import java.util.Properties;
 import java.util.Scanner;
 
 import javax.jms.Connection;
@@ -16,6 +17,12 @@ import javax.naming.InitialContext;
 public class TesteConsumidor {
 
 	public static void main(String[] args) throws Exception {
+		Properties properties = new Properties();
+		properties.setProperty("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+		properties.setProperty("java.naming.provider.url", "tcp://192.168.0.94:61616");
+		properties.setProperty("queue.financeiro", "fila.financeiro");
+		InitialContext contextWithProperties = new InitialContext(properties);
+		
 		InitialContext context = new InitialContext();
 		ConnectionFactory factory = (ConnectionFactory) context.lookup("ConnectionFactory");
 		
@@ -25,6 +32,8 @@ public class TesteConsumidor {
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		Destination fila = (Destination) context.lookup("financeiro");
 		MessageConsumer consumer = session.createConsumer(fila);
+		
+		// QueueBrowser browser = session.createBrowser((Queue) fila); // only monitors the messages without consume them
 		
 		consumer.setMessageListener(new MessageListener() {
 			
