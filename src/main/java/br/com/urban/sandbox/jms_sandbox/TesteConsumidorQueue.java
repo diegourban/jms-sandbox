@@ -1,6 +1,5 @@
 package br.com.urban.sandbox.jms_sandbox;
 
-import java.util.Properties;
 import java.util.Scanner;
 
 import javax.jms.Connection;

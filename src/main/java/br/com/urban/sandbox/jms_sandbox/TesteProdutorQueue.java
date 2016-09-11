@@ -1,7 +1,5 @@
 package br.com.urban.sandbox.jms_sandbox;
 
-import java.util.Scanner;
-
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -27,8 +25,6 @@ public class TesteProdutorQueue {
 			Message message = session.createTextMessage("<pedido><id>" + i + "</></pedido>");
 			producer.send(message);
 		}
-		
-		//new Scanner(System.in).nextLine();
 		
 		session.close();
 		connection.close();

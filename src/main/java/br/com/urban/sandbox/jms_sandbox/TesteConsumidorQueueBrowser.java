@@ -25,7 +25,7 @@ public class TesteConsumidorQueueBrowser {
 		Destination fila = (Destination) context.lookup("financeiro");
 		
 		QueueBrowser browser = session.createBrowser((Queue) fila); // only monitors the messages without consume them
-		Enumeration msgs = browser.getEnumeration();
+		Enumeration<?> msgs = browser.getEnumeration();
 		while (msgs.hasMoreElements()) { 
 		    TextMessage msg = (TextMessage) msgs.nextElement(); 
 		    System.out.println("Message: " + msg.getText()); 
