@@ -22,6 +22,7 @@ public class TesteProdutorTopic {
 		MessageProducer producer = session.createProducer(topico);
 		
 		Message message = session.createTextMessage("<pedido><id>123</></pedido>");
+		message.setBooleanProperty("ebook", false);
 		producer.send(message);
 		
 		session.close();
