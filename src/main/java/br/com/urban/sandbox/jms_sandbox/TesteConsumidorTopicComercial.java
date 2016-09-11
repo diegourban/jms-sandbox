@@ -1,6 +1,5 @@
 package br.com.urban.sandbox.jms_sandbox;
 
-import java.util.Properties;
 import java.util.Scanner;
 
 import javax.jms.Connection;
@@ -12,28 +11,25 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.jms.Topic;
+import javax.jms.TopicSubscriber;
 import javax.naming.InitialContext;
 
-public class TesteConsumidor {
+public class TesteConsumidorTopicComercial {
 
 	public static void main(String[] args) throws Exception {
-		Properties properties = new Properties();
-		properties.setProperty("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
-		properties.setProperty("java.naming.provider.url", "tcp://192.168.0.94:61616");
-		properties.setProperty("queue.financeiro", "fila.financeiro");
-		InitialContext contextWithProperties = new InitialContext(properties);
-		
 		InitialContext context = new InitialContext();
 		ConnectionFactory factory = (ConnectionFactory) context.lookup("ConnectionFactory");
 		
 		Connection connection = factory.createConnection();
+		connection.setClientID("comercial");
 		connection.start(); 
 		
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		Destination fila = (Destination) context.lookup("financeiro");
-		MessageConsumer consumer = session.createConsumer(fila);
+		Topic topico = (Topic) context.lookup("loja");
+		//MessageConsumer consumer = session.createConsumer(topico);
 		
-		// QueueBrowser browser = session.createBrowser((Queue) fila); // only monitors the messages without consume them
+		MessageConsumer consumer = session.createDurableSubscriber(topico, "assinatura");
 		
 		consumer.setMessageListener(new MessageListener() {
 			

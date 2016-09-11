@@ -10,7 +10,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 
-public class TesteProdutor {
+public class TesteProdutorQueue {
 
 	public static void main(String[] args) throws Exception {
 		InitialContext context = new InitialContext();
