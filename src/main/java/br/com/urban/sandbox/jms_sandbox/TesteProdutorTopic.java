@@ -8,6 +8,9 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 
+import br.com.urban.sandbox.jms_sandbox.model.Pedido;
+import br.com.urban.sandbox.jms_sandbox.model.PedidoFactory;
+
 public class TesteProdutorTopic {
 
 	public static void main(String[] args) throws Exception {
@@ -21,7 +24,14 @@ public class TesteProdutorTopic {
 		Destination topico = (Destination) context.lookup("loja");
 		MessageProducer producer = session.createProducer(topico);
 		
-		Message message = session.createTextMessage("<pedido><id>123</></pedido>");
+		Pedido pedido = new PedidoFactory().geraPedidoComValores();
+		
+//		StringWriter writer = new StringWriter();
+//		JAXB.marshal(pedido, writer);
+//		String xml = writer.toString();
+//		Message message = session.createTextMessage(xml);
+		
+		Message message = session.createObjectMessage(pedido);
 		message.setBooleanProperty("ebook", false);
 		producer.send(message);
 		
