@@ -1,4 +1,4 @@
-package br.com.urban.sandbox.jms_sandbox.model;
+package urban.sandbox.jms.model;
 
 import java.math.BigDecimal;
 import java.text.ParseException;

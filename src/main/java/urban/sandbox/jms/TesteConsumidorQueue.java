@@ -1,4 +1,4 @@
-package br.com.urban.sandbox.jms_sandbox;
+package urban.sandbox.jms;
 
 import java.util.Scanner;
 

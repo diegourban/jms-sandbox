@@ -1,4 +1,4 @@
-package br.com.urban.sandbox.jms_sandbox;
+package urban.sandbox.jms;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;

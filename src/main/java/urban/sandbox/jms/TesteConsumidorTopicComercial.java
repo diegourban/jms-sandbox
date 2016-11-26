@@ -1,6 +1,5 @@
-package br.com.urban.sandbox.jms_sandbox;
+package urban.sandbox.jms;
 
-import java.io.Serializable;
 import java.util.Scanner;
 
 import javax.jms.Connection;
@@ -11,11 +10,10 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
 
-import br.com.urban.sandbox.jms_sandbox.model.Pedido;
+import urban.sandbox.jms.model.Pedido;
 
 public class TesteConsumidorTopicComercial {
 

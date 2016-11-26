@@ -1,32 +1,43 @@
-package br.com.urban.sandbox.jms_sandbox;
+package urban.sandbox.jms;
+
+import java.util.Scanner;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.Message;
-import javax.jms.MessageProducer;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 
-public class TesteProdutorLogQueue {
+public class ConsumidorDLQ {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception {
+
 		InitialContext context = new InitialContext();
 		ConnectionFactory factory = (ConnectionFactory) context.lookup("ConnectionFactory");
-		
+
 		Connection connection = factory.createConnection();
-		connection.start(); 
-		
+		connection.start();
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		Destination fila = (Destination) context.lookup("LOG");
-		MessageProducer producer = session.createProducer(fila);
-		
-		Message message = session.createTextMessage("INFO ....");
-		producer.send(message, DeliveryMode.NON_PERSISTENT, 0, 10000);
-		
-		// MessageConsumer consumer = session.createConsumer(fila, "JMSPriority > 6" );
-		
+
+		Destination fila = (Destination) context.lookup("DLQ");
+		MessageConsumer consumer = session.createConsumer(fila);
+
+		consumer.setMessageListener(new MessageListener() {
+
+			@Override
+			public void onMessage(Message message) {
+
+				System.out.println(message);
+			}
+
+		});
+
+		new Scanner(System.in).nextLine();
+
 		session.close();
 		connection.close();
 		context.close();

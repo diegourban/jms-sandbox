@@ -1,4 +1,4 @@
-package br.com.urban.sandbox.jms_sandbox;
+package urban.sandbox.jms;
 
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
 
-public class TesteConsumidorTopicEstoque {
+public class TesteConsumidorTopicEstoqueSelector {
 
 	public static void main(String[] args) throws Exception {
 		InitialContext context = new InitialContext();
@@ -25,9 +25,8 @@ public class TesteConsumidorTopicEstoque {
 		
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		Topic topico = (Topic) context.lookup("loja");
-		//MessageConsumer consumer = session.createConsumer(topico);
 		
-		MessageConsumer consumer = session.createDurableSubscriber(topico, "assinatura");
+		MessageConsumer consumer = session.createDurableSubscriber(topico, "assinatura-selector", "ebook is null OR ebook=false", false);
 		
 		consumer.setMessageListener(new MessageListener() {
 			

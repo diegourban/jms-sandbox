@@ -1,4 +1,4 @@
-package br.com.urban.sandbox.jms_sandbox;
+package urban.sandbox.jms;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -8,8 +8,9 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 
-import br.com.urban.sandbox.jms_sandbox.model.Pedido;
-import br.com.urban.sandbox.jms_sandbox.model.PedidoFactory;
+import urban.sandbox.jms.model.Pedido;
+import urban.sandbox.jms.model.PedidoFactory;
+
 
 public class TesteProdutorTopic {
 
